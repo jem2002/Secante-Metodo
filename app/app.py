@@ -3,6 +3,7 @@ import sympy as sp
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+from sympy import pi
 import numpy as np
 
 class SecantMethodApp(ctk.CTk):
@@ -79,7 +80,7 @@ class SecantMethodApp(ctk.CTk):
             
             # Definir símbolo y función
             x = sp.symbols('x')
-            f_expr = sp.sympify(f_str)
+            f_expr = sp.sympify(f_str, locals={'pi': sp.pi})
             f = sp.lambdify(x, f_expr, 'numpy')
             
             # Configurar gráfico
@@ -133,7 +134,7 @@ class SecantMethodApp(ctk.CTk):
     def setup_plot(self, f, f_str, x0, x1):
         # Limpiar gráfico anterior
         if self.canvas:
-            self.canvas.get_tk_widget().sdestroy()
+            self.canvas.get_tk_widget().destroy()
         
         self.ax.clear()
         
